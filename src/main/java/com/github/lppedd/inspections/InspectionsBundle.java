@@ -17,7 +17,7 @@ public final class InspectionsBundle {
   private static Reference<ResourceBundle> bundleReference;
 
   public static @NotNull String get(
-      @PropertyKey(resourceBundle = BUNDLE) final String key,
+      @PropertyKey(resourceBundle = BUNDLE) final @NotNull String key,
       final Object... params) {
     return BundleBase.message(getBundle(), key, params);
   }

@@ -24,12 +24,12 @@ import com.siyeh.ig.psiutils.ExpressionUtils;
  * @author Edoardo Luppi
  */
 class UnnecessaryCharSequenceToStringFix implements LocalQuickFix {
-  private final UnnecessaryCharSequenceToStringElementVisitor visitor;
-  private final SmartPsiElementPointer<PsiVariable> smartVariable;
+  private final @NotNull UnnecessaryCharSequenceToStringElementVisitor visitor;
+  private final @NotNull SmartPsiElementPointer<PsiVariable> smartVariable;
 
   UnnecessaryCharSequenceToStringFix(
-      final UnnecessaryCharSequenceToStringElementVisitor visitor,
-      final PsiVariable variable) {
+      final @NotNull UnnecessaryCharSequenceToStringElementVisitor visitor,
+      final @NotNull PsiVariable variable) {
     this.visitor = visitor;
     smartVariable =
         SmartPointerManager.getInstance(variable.getProject())

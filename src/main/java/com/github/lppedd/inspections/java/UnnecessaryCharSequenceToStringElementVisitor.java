@@ -22,9 +22,9 @@ class UnnecessaryCharSequenceToStringElementVisitor extends JavaElementVisitor {
 
   private final @NotNull ProblemsHolder holder;
   private final boolean isOnTheFly;
-  private final PsiClassType charSequenceType;
-  private final PsiClassType stringType;
-  private final PsiElementFactory elementFactory;
+  private final @NotNull PsiClassType charSequenceType;
+  private final @NotNull PsiClassType stringType;
+  private final @NotNull PsiElementFactory elementFactory;
 
   UnnecessaryCharSequenceToStringElementVisitor(
       final @NotNull ProblemsHolder holder,
@@ -38,7 +38,7 @@ class UnnecessaryCharSequenceToStringElementVisitor extends JavaElementVisitor {
   }
 
   @Override
-  public void visitLocalVariable(final PsiLocalVariable variable) {
+  public void visitLocalVariable(final @NotNull PsiLocalVariable variable) {
     ProgressIndicatorProvider.checkCanceled();
     addDescriptors(checkVariable(variable));
   }
