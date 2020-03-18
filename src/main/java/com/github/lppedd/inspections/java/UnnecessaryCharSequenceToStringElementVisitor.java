@@ -113,9 +113,8 @@ class UnnecessaryCharSequenceToStringElementVisitor extends JavaElementVisitor {
     }
 
     for (final var psiReference : psiReferences) {
-      final var psiReferenceElement = psiReference.getElement();
       final var psiMethodCallExpression = PsiTreeUtil.getContextOfType(
-          psiReferenceElement,
+          psiReference.getElement(),
           PsiMethodCallExpression.class,
           false,
           PsiStatement.class
