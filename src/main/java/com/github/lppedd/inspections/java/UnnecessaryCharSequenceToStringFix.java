@@ -61,7 +61,7 @@ class UnnecessaryCharSequenceToStringFix implements LocalQuickFix {
     }
 
     final var psiMethodCallExpression =
-        Utils.tryCastOrFail(
+        Utils.castOrFail(
             descriptor.getPsiElement().getParent().getParent(),
             PsiMethodCallExpression.class
         );
@@ -74,7 +74,7 @@ class UnnecessaryCharSequenceToStringFix implements LocalQuickFix {
     }
 
     final var newPsiMethodCallExpression =
-        Utils.tryCastOrFail(
+        Utils.castOrFail(
             new CommentTracker().replaceAndRestoreComments(psiMethodCallExpression, qualifier),
             PsiMethodCallExpression.class
         );
@@ -85,7 +85,7 @@ class UnnecessaryCharSequenceToStringFix implements LocalQuickFix {
 
     // Replace the variable type with the method return type
     // noinspection ConstantConditions
-    final var newType = Utils.tryCastOrFail(
+    final var newType = Utils.castOrFail(
         new CommentTracker().replaceAndRestoreComments(typeElement, methodReturnType),
         PsiTypeElement.class
     );

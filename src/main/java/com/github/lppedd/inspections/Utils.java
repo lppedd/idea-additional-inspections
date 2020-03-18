@@ -11,7 +11,7 @@ import com.intellij.util.ObjectUtils;
  * @author Edoardo Luppi
  */
 public final class Utils {
-  public static @NotNull <T> T tryCastOrFail(
+  public static @NotNull <T> T castOrFail(
       final @Nullable Object obj,
       final @NotNull Class<T> clazz) {
     final var errorMessage = "Could not cast object to " + clazz.getSimpleName();
