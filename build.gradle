@@ -1,0 +1,49 @@
+import org.gradle.internal.jvm.Jvm
+
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '0.4.16'
+}
+
+group 'com.github.lppedd'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_14
+
+repositories {
+    maven { url 'https://jitpack.io' }
+    mavenCentral()
+}
+
+dependencies {
+    // implementation 'one.util:streamex:0.7.2'
+    compileOnly 'org.jetbrains:annotations:19.0.0'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    annotationProcessor 'net.bytebuddy:byte-buddy:1.10.8'
+    annotationProcessor 'net.bytebuddy:byte-buddy-agent:1.10.8'
+    annotationProcessor 'com.github.bsideup.jabel:jabel-javac-plugin:0.2.0'
+}
+
+intellij {
+    version 'IU-2019.2'
+    downloadSources = true
+    pluginName 'Additional Inspections'
+    plugins = ['java']
+}
+
+patchPluginXml {
+    changeNotes """
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>"""
+}
+
+tasks {
+    compileJava {
+        options.forkOptions.jvmArgs.add '-Djdk.attach.allowAttachSelf=true'
+        options.compilerArgs = ['--release', '8']
+
+        doFirst {
+            println "Current JVM: " + Jvm.current()
+        }
+    }
+}

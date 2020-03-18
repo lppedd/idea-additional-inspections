@@ -1,0 +1,14 @@
+<idea-plugin>
+  <id>com.github.lppedd.idea-additional-inspections</id>
+  <name>Additional Inspections</name>
+  <vendor email="lp.edoardo@gmail.com" url="http://www.github.com/lppedd/idea-additional-inspections">
+    Edoardo Luppi
+  </vendor>
+
+  <description><![CDATA[
+    Provides additional inspections for IDEA-based IDEs
+  ]]></description>
+
+  <depends>com.intellij.modules.platform</depends>
+  <depends optional="true" config-file="java.xml">com.intellij.java</depends>
+</idea-plugin>

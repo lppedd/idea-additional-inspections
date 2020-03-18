@@ -1,0 +1,18 @@
+<idea-plugin>
+  <extensions defaultExtensionNs="com.intellij">
+    <!--suppress PluginXmlDynamicPlugin -->
+    <localInspection
+        language="JAVA"
+        groupPath="Java"
+        groupBundle="messages.InspectionsBundle"
+        groupKey="group.names.verbose.or.redundant.code.constructs"
+        bundle="messages.AdditionalInspections"
+        key="unnecessary.charsequence.tostring.displayName"
+        shortName="UnnecessaryCharSequenceToStringCall"
+        enabledByDefault="true"
+        cleanupTool="true"
+        level="WARNING"
+        implementationClass="com.github.lppedd.inspections.java.UnnecessaryCharSequenceToStringInspection"
+    />
+  </extensions>
+</idea-plugin>
