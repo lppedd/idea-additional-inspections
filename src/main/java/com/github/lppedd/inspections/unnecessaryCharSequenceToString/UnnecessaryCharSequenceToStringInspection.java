@@ -1,4 +1,4 @@
-package com.github.lppedd.inspections.java;
+package com.github.lppedd.inspections.unnecessaryCharSequenceToString;
 
 import org.jetbrains.annotations.NotNull;
 

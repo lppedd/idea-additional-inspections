@@ -9,6 +9,7 @@ group 'com.github.lppedd'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = JavaVersion.VERSION_14
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     maven { url 'https://jitpack.io' }
@@ -21,7 +22,7 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     annotationProcessor 'net.bytebuddy:byte-buddy:1.10.8'
     annotationProcessor 'net.bytebuddy:byte-buddy-agent:1.10.8'
-    annotationProcessor 'com.github.bsideup.jabel:jabel-javac-plugin:0.2.0'
+    annotationProcessor files('libs/jabel-javac-plugin.jar')
 }
 
 intellij {
@@ -40,9 +41,13 @@ patchPluginXml {
 tasks {
     compileJava {
         options.forkOptions.jvmArgs.add '-Djdk.attach.allowAttachSelf=true'
-        options.compilerArgs = ['--release', '8']
+        options.compilerArgs = ['--release', '8', '--enable-preview']
 
         doFirst {
+            options.compilerArgs = options.compilerArgs.findAll {
+                it != '--enable-preview'
+            }
+
             println "Current JVM: " + Jvm.current()
         }
     }

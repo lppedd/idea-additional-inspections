@@ -37,7 +37,6 @@
       <option name="m_ignoreCloneableDueToInheritance" value="true" />
     </inspection_tool>
     <inspection_tool class="ComparisonOfShortAndChar" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="ConditionalCanBeOptional" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ConfusingElse" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="reportWhenNoStatementFollow" value="true" />
     </inspection_tool>
@@ -223,6 +222,7 @@
       </option>
     </inspection_tool>
     <inspection_tool class="SuspiciousAsDynamic" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="SuspiciousToArrayCall" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="SystemOutErr" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="TestOnlyProblems" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ThisEscapedInConstructor" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -239,7 +239,7 @@
       <option name="doNotWeakenToJavaLangObject" value="true" />
       <option name="onlyWeakentoInterface" value="true" />
       <option name="doNotWeakenInferredVariableType" value="true" />
-      <stopClasses>java.util.Collection,com.intellij.psi.PsiMethodCallExpression,com.intellij.psi.PsiVariable</stopClasses>
+      <stopClasses>java.util.Collection,com.intellij.psi.PsiMethodCallExpression,com.intellij.psi.PsiVariable,com.intellij.psi.PsiExpressionList,com.intellij.psi.PsiReferenceExpression</stopClasses>
     </inspection_tool>
     <inspection_tool class="UNCHECKED_WARNING" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="IGNORE_UNCHECKED_ASSIGNMENT" value="false" />

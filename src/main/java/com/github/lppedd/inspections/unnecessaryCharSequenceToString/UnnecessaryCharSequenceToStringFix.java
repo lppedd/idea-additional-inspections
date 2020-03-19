@@ -1,4 +1,4 @@
-package com.github.lppedd.inspections.java;
+package com.github.lppedd.inspections.unnecessaryCharSequenceToString;
 
 import static com.intellij.refactoring.introduceVariable.IntroduceVariableBase.expandDiamondsAndReplaceExplicitTypeWithVar;
 
@@ -10,11 +10,7 @@ import com.intellij.codeInspection.CommonQuickFixBundle;
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.openapi.project.Project;
-import com.intellij.psi.PsiMethodCallExpression;
-import com.intellij.psi.PsiTypeElement;
-import com.intellij.psi.PsiVariable;
-import com.intellij.psi.SmartPointerManager;
-import com.intellij.psi.SmartPsiElementPointer;
+import com.intellij.psi.*;
 import com.intellij.psi.codeStyle.CodeStyleManager;
 import com.intellij.psi.codeStyle.JavaCodeStyleManager;
 import com.siyeh.ig.psiutils.CommentTracker;
@@ -29,11 +25,11 @@ class UnnecessaryCharSequenceToStringFix implements LocalQuickFix {
 
   UnnecessaryCharSequenceToStringFix(
       final @NotNull UnnecessaryCharSequenceToStringElementVisitor visitor,
-      final @NotNull PsiVariable variable) {
+      final @NotNull PsiVariable psiVariable) {
     this.visitor = visitor;
     smartVariable =
-        SmartPointerManager.getInstance(variable.getProject())
-                           .createSmartPsiElementPointer(variable);
+        SmartPointerManager.getInstance(psiVariable.getProject())
+                           .createSmartPsiElementPointer(psiVariable);
   }
 
   @Override
@@ -60,11 +56,15 @@ class UnnecessaryCharSequenceToStringFix implements LocalQuickFix {
       return;
     }
 
-    final var psiMethodCallExpression =
-        Utils.castOrFail(
-            descriptor.getPsiElement().getParent().getParent(),
-            PsiMethodCallExpression.class
-        );
+    final var psiExpression = Utils.castOrFail(
+        descriptor.getPsiElement().getContext(),
+        PsiExpression.class
+    );
+
+    final var psiMethodCallExpression = Utils.castOrFail(
+        ExpressionUtils.getPassThroughParent(psiExpression),
+        PsiMethodCallExpression.class
+    );
 
     final var psiMethodExpression = psiMethodCallExpression.getMethodExpression();
     final var qualifier = ExpressionUtils.getEffectiveQualifier(psiMethodExpression);
@@ -73,20 +73,22 @@ class UnnecessaryCharSequenceToStringFix implements LocalQuickFix {
       return;
     }
 
-    final var newPsiMethodCallExpression =
-        Utils.castOrFail(
-            new CommentTracker().replaceAndRestoreComments(psiMethodCallExpression, qualifier),
-            PsiMethodCallExpression.class
-        );
+    final var newPsiMethodCallExpression = Utils.castOrFail(
+        new CommentTracker().replaceAndRestoreComments(psiMethodCallExpression, qualifier),
+        PsiExpression.class
+    );
 
     // noinspection ConstantConditions
-    final var methodReturnType = newPsiMethodCallExpression.resolveMethod().getReturnTypeElement();
+    final var newTypeElement =
+        JavaPsiFacade.getElementFactory(project)
+                     .createTypeElement(newPsiMethodCallExpression.getType());
+
     final var typeElement = psiVariable.getTypeElement();
 
     // Replace the variable type with the method return type
     // noinspection ConstantConditions
     final var newType = Utils.castOrFail(
-        new CommentTracker().replaceAndRestoreComments(typeElement, methodReturnType),
+        new CommentTracker().replaceAndRestoreComments(typeElement, newTypeElement),
         PsiTypeElement.class
     );
 

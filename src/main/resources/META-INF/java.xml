@@ -12,7 +12,7 @@
         enabledByDefault="true"
         cleanupTool="true"
         level="WARNING"
-        implementationClass="com.github.lppedd.inspections.java.UnnecessaryCharSequenceToStringInspection"
+        implementationClass="com.github.lppedd.inspections.unnecessaryCharSequenceToString.UnnecessaryCharSequenceToStringInspection"
     />
   </extensions>
 </idea-plugin>
